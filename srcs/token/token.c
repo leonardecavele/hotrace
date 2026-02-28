@@ -6,14 +6,17 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 12:19:26 by ldecavel          #+#    #+#             */
-/*   Updated: 2026/02/28 17:29:37 by ldecavel         ###   ########.fr       */
+/*   Updated: 2026/02/28 17:34:49 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "token.h"
 #include "helpers.h"
 
-extern t_errcode	free_all_tokens_errcode(t_token *table[HASH_SIZE], int errcode)
+extern t_errcode	free_all_tokens_errcode(
+	t_token *table[HASH_SIZE],
+	int errcode
+)
 {
 	free_all_tokens(table);
 	return (errcode);
@@ -52,7 +55,11 @@ extern bool	get_token_value(t_token *table[HASH_SIZE], char *key, char **value)
 	return (false);
 }
 
-extern t_errcode	create_token(t_token *table[HASH_SIZE], char *key, char *value)
+extern t_errcode	create_token(
+	t_token *table[HASH_SIZE],
+	char *key,
+	char *value
+)
 {
 	size_t		index;
 
