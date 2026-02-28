@@ -14,6 +14,17 @@
 #include "token.h"
 #include "helpers.h"
 
+static bool	key_check(char *key)
+{
+	if (!key || !*key)
+	{
+		if (key)
+			free(key);
+		return (true);
+	}
+	return (false);
+}
+
 static t_errcode	parse_dictionary(t_token *table[HASH_SIZE])
 {
 	t_errcode	errcode_gnl;
@@ -24,7 +35,7 @@ static t_errcode	parse_dictionary(t_token *table[HASH_SIZE])
 	key = NULL;
 	value = NULL;
 	errcode_gnl = get_next_line_no_nl(0, &key);
-	if (!key || !*key)
+	if (key_check(key))
 		return (errcode_gnl);
 	errcode_gnl |= get_next_line_no_nl(0, &value);
 	while (key && *key && errcode_gnl == NO_ERR)
@@ -33,7 +44,7 @@ static t_errcode	parse_dictionary(t_token *table[HASH_SIZE])
 		if (errcode_token != NO_ERR)
 			return (free_all_tokens_errcode(table, errcode_token));
 		errcode_gnl = get_next_line_no_nl(0, &key);
-		if (!key || !*key)
+		if (key_check(key))
 			return (errcode_gnl);
 		errcode_gnl |= get_next_line_no_nl(0, &value);
 	}
@@ -48,7 +59,7 @@ static t_errcode	parse_input(t_token *table[HASH_SIZE])
 
 	key = NULL;
 	errcode_gnl = get_next_line_no_nl(0, &key);
-	while (errcode_gnl == NO_ERR && key)
+	while (errcode_gnl == NO_ERR && key && *key)
 	{
 		if (!get_token_value(table, key, &value))
 		{
