@@ -6,7 +6,7 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 12:19:26 by ldecavel          #+#    #+#             */
-/*   Updated: 2026/02/28 17:34:49 by ldecavel         ###   ########.fr       */
+/*   Updated: 2026/02/28 19:46:31 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,30 @@ extern bool	get_token_value(t_token *table[HASH_SIZE], char *key, char **value)
 	return (false);
 }
 
+static bool	token_collision(
+	t_token *table[HASH_SIZE],
+	char *key,
+	char *value,
+	size_t index
+)
+{
+	t_token	*root;
+
+	root = table[index];
+	while (root)
+	{
+		if (!ft_strcmp(root->key, key))
+		{
+			free(key);
+			free(root->value);
+			root->value = value;
+			return (true);
+		}
+		root = root->next;
+	}
+	return (false);
+}
+
 extern t_errcode	create_token(
 	t_token *table[HASH_SIZE],
 	char *key,
@@ -64,5 +88,7 @@ extern t_errcode	create_token(
 	size_t		index;
 
 	index = hash_fnv1a(key) & (HASH_SIZE - 1);
+	if (token_collision(table, key, value, index))
+		return (NO_ERR);
 	return (list_push_back_new(&table[index], key, value));
 }
