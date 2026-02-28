@@ -66,15 +66,12 @@ static bool	btol(t_gnl *gnl, t_rest *rest)
 			f_eol = 1;
 		}
 	}
+	rest->len = 0;
+	rest->i = 0;
 	if (i < (size_t)gnl->nread)
 	{
 		rest->len = gnl->nread - i;
 		rest->i += i;
-	}
-	else
-	{
-		rest->len = 0;
-		rest->i = 0;
 	}
 	gnl->l[gnl->cur] = 0;
 	gnl->nread = 0;
