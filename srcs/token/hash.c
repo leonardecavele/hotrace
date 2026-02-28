@@ -6,7 +6,7 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 14:01:45 by ldecavel          #+#    #+#             */
-/*   Updated: 2026/02/28 15:31:46 by ldecavel         ###   ########.fr       */
+/*   Updated: 2026/02/28 17:26:52 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,14 @@
 
 extern size_t	hash_fnv1a(const char *s)
 {
-	size_t h = 1469598103934665603ULL;
+	size_t	h;
 
+	h = 1469598103934665603ULL;
 	while (*s)
 	{
 		h ^= (unsigned char)*s;
 		h *= 1099511628211ULL;
 		s++;
 	}
-	return h;
+	return (h);
 }

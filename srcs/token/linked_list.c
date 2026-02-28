@@ -6,7 +6,7 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 13:31:51 by ldecavel          #+#    #+#             */
-/*   Updated: 2026/02/28 16:23:14 by ldecavel         ###   ########.fr       */
+/*   Updated: 2026/02/28 17:27:11 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ extern void	list_clear(t_token **root)
 
 	if (!root || !*root)
 		return ;
-
 	current = *root;
 	while (current)
 	{
@@ -58,12 +57,10 @@ extern t_errcode	list_push_back_new(t_token **root, char *key, char *value)
 	token = malloc(sizeof(t_token));
 	if (!token)
 		return (MALLOC_ERR);
-
 	token->key = key;
 	token->value = value;
 	token->next = NULL;
 	token->prev = NULL;
-
 	list_push_back(root, token);
 	return (NO_ERR);
 }
