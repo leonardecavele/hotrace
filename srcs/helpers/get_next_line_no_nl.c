@@ -6,7 +6,7 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 10:27:10 by ldecavel          #+#    #+#             */
-/*   Updated: 2026/02/28 16:48:55 by ldecavel         ###   ########.fr       */
+/*   Updated: 2026/02/28 19:50:10 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,22 @@ static bool	alloc_l(t_gnl *gnl)
 	return (1);
 }
 
+static void	handle_rest(t_gnl *gnl, t_rest *rest, size_t i)
+{
+	rest->len = 0;
+	rest->i = 0;
+	if (i < (size_t)gnl->nread)
+	{
+		rest->len = gnl->nread - i;
+		rest->i += i;
+	}
+	else
+	{
+		rest->len = 0;
+		rest->i = 0;
+	}
+}
+
 static bool	btol(t_gnl *gnl, t_rest *rest)
 {
 	bool	f_nl;
@@ -67,13 +83,7 @@ static bool	btol(t_gnl *gnl, t_rest *rest)
 			f_nl = 1;
 		}
 	}
-	rest->len = 0;
-	rest->i = 0;
-	if (i < (size_t)gnl->nread)
-	{
-		rest->len = gnl->nread - i;
-		rest->i += i;
-	}
+	handle_rest(gnl, rest, i);
 	gnl->l[gnl->cur] = 0;
 	gnl->nread = 0;
 	return (f_nl);
