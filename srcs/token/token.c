@@ -6,7 +6,7 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 12:19:26 by ldecavel          #+#    #+#             */
-/*   Updated: 2026/02/28 17:18:41 by ldecavel         ###   ########.fr       */
+/*   Updated: 2026/02/28 17:22:27 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,9 @@ extern bool	get_token_value(t_token *table[HASH_SIZE], char *key, char **value)
 {
 	size_t	index;
 	t_token	*root;
+	char	*null_value;
 
+	null_value = "<(null)>";
 	index = hash_fnv1a(key) & (HASH_SIZE - 1);
 	root = table[index];
 	while (root)
@@ -40,6 +42,8 @@ extern bool	get_token_value(t_token *table[HASH_SIZE], char *key, char **value)
 		if (!ft_strcmp(root->key, key))
 		{
 			*value = root->value;
+			if (!*value)
+				*value = null_value;
 			return true;
 		}
 		root = root->next;
