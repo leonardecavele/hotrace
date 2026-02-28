@@ -1,21 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
+/*   helpers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/30 12:35:04 by ldecavel          #+#    #+#             */
-/*   Updated: 2026/01/23 22:18:08 by ldecavel         ###   ########lyon.fr   */
+/*   Created: 2026/02/28 12:34:51 by ldecavel          #+#    #+#             */
+/*   Updated: 2026/02/28 12:37:57 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "token.h"
 
-void	ft_putendl_fd(char *s, int fd)
+extern int	free_all_tokens_errcode(int errcode)
 {
-	if (!s)
-		return ;
-	write(fd, s, ft_strlen(s));
-	write(fd, "\n", 1);
+	free_all_tokens();
+	return (errcode);
 }

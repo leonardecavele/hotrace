@@ -1,26 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   errors.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/27 12:24:24 by ldecavel          #+#    #+#             */
-/*   Updated: 2026/01/23 22:17:55 by ldecavel         ###   ########lyon.fr   */
+/*   Created: 2026/02/28 12:03:56 by ldecavel          #+#    #+#             */
+/*   Updated: 2026/02/28 12:07:42 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef ERRORS_H
+# define ERRORS_H
 
-char	*ft_strdup(const char *s)
-{
-	size_t	len;
-	char	*ptr;
+typedef enum e_errors {
+	NO_ERR,
+	MALLOC_ERR,
+}	t_errors;
 
-	len = ft_strlen(s) + 1;
-	ptr = malloc(len);
-	if (!ptr)
-		return (NULL);
-	ft_memcpy(ptr, s, len);
-	return (ptr);
-}
+#endif

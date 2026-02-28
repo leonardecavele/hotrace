@@ -1,27 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter.c                                       :+:      :+:    :+:   */
+/*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/30 16:07:39 by ldecavel          #+#    #+#             */
-/*   Updated: 2025/08/30 16:13:14 by ldecavel         ###   ########.fr       */
+/*   Created: 2026/02/28 12:19:26 by ldecavel          #+#    #+#             */
+/*   Updated: 2026/02/28 14:01:30 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "token.h"
 
-void	ft_lstiter(t_list *lst, void (*f)(void *))
+extern void	free_all_tokens(t_token **table[HASH_SIZE])
 {
-	t_list	*next;
+	size_t	i;
 
-	if (!f)
-		return ;
-	while (lst)
-	{
-		next = lst->next;
-		(*f)(lst->content);
-		lst = next;
-	}
+	i = -1;
+	while (++i < HASH_SIZE)
+		list_clear(&table[i]);
+}
+
+extern int	free_all_tokens_errcode(t_token **table[HASH_SIZE], int errcode)
+{
+	free_all_tokens(table);
+	return (errcode);
+}
+
+extern char	*get_token_value(t_token *table[HASH_SIZE])
+{
+}
+
+extern int	create_token(t_token **table[HASH_SIZE], char *key, char *value)
+{
 }

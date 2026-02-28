@@ -6,11 +6,11 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 10:27:10 by ldecavel          #+#    #+#             */
-/*   Updated: 2026/01/23 22:16:13 by ldecavel         ###   ########lyon.fr   */
+/*   Updated: 2026/02/28 12:23:37 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "get_next_line.h"
 
 static void	prep(t_gnl *gnl, t_rest *rest)
 {
