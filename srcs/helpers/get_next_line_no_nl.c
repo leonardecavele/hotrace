@@ -96,19 +96,10 @@ extern t_errcode	get_next_line_no_nl(int fd, char **s)
 			break ;
 	}
 	if ((!gnl.cur && !gnl.nread) || gnl.nread < 0)
-		gnl.dup = NULL;
-	else
 	{
-		gnl.dup = malloc(++gnl.cur);
-		if (gnl.dup == NULL)
-		{
-			free(gnl.l);
-			return (MALLOC_ERR);
-		}
+		free(gnl.l);
+		gnl.l = NULL;
 	}
-	while (gnl.dup && gnl.cur--)
-		gnl.dup[gnl.cur] = gnl.l[gnl.cur];
-	free(gnl.l);
-	*s = gnl.dup;
+	*s = gnl.l;
 	return (NO_ERR);
 }
