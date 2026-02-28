@@ -16,7 +16,7 @@ SRCS = main.c \
 	   helpers/ft_putstr_fd.c \
 	   helpers/ft_strcmp.c \
 	   helpers/ft_strlen.c \
-	   helpers/get_next_line.c \
+	   helpers/get_next_line_no_nl.c \
 	   token/hash.c \
 	   token/linked_list.c \
 	   token/token.c
@@ -41,7 +41,8 @@ clean:
 fclean: clean
 	rm -f $(NAME)
 
-re: fclean all
+re: fclean
+	@make all --no-print-directory
 
 # miscellaneous
 .PHONY: all clean fclean re
