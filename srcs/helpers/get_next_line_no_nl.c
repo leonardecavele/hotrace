@@ -82,7 +82,7 @@ static bool	btol(t_gnl *gnl, t_rest *rest)
 		}
 	}
 	handle_rest(gnl, rest, i);
-	gnl->l[gnl->cur] = 0;
+	gnl->l[gnl->cur] = '\0';
 	gnl->nread = 0;
 	return (f_nl);
 }
@@ -103,7 +103,8 @@ extern t_errcode	get_next_line_no_nl(int fd, char **s)
 		if (gnl.nread < 1)
 			break ;
 	}
-	if ((!gnl.cur && !gnl.nread) || gnl.nread < 0)
+	if (!(gnl.l && *gnl.l == '\0')
+		&& ((!gnl.cur && !gnl.nread) || gnl.nread < 0))
 	{
 		free(gnl.l);
 		gnl.l = NULL;
