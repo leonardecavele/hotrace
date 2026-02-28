@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_no_nl.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 10:27:10 by ldecavel          #+#    #+#             */
-/*   Updated: 2026/02/28 15:27:57 by ldecavel         ###   ########.fr       */
+/*   Updated: 2026/02/28 16:48:55 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,10 @@ static bool	btol(t_gnl *gnl, t_rest *rest)
 	{
 		gnl->l[gnl->cur++] = rest->b[rest->i + i];
 		if (rest->b[rest->i + i++] == '\n')
+		{
+			gnl->cur--;
 			f_eol = 1;
+		}
 	}
 	if (i < (size_t)gnl->nread)
 	{
@@ -78,7 +81,7 @@ static bool	btol(t_gnl *gnl, t_rest *rest)
 	return (f_eol);
 }
 
-extern bool	get_next_line(int fd, char **s)
+extern bool	get_next_line_no_nl(int fd, char **s)
 {
 	static t_rest	rest[FD_MAX] = {0};
 	t_gnl			gnl;

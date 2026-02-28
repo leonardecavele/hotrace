@@ -6,7 +6,7 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 14:58:42 by ldecavel          #+#    #+#             */
-/*   Updated: 2026/02/28 16:16:07 by ldecavel         ###   ########.fr       */
+/*   Updated: 2026/02/28 16:42:09 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef struct s_gnl
 	size_t	max;
 }	t_gnl;
 
-bool	get_next_line(int fd, char **s);
+bool	get_next_line_no_nl(int fd, char **s);
 void	ft_putstr_fd(int fd, const char *s);
 int		ft_strcmp(const char *s1, const char *s2);
 size_t	ft_strlen(const char *s);

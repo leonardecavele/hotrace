@@ -6,7 +6,7 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 22:14:57 by ldecavel          #+#    #+#             */
-/*   Updated: 2026/02/28 16:25:03 by ldecavel         ###   ########.fr       */
+/*   Updated: 2026/02/28 16:51:59 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,11 @@ static t_errcode	parse_dictionary(t_token *table[HASH_SIZE])
 	value = NULL;
 	// if malloc fail in gnl, silent error
 	// need to get without the \n
-	while (get_next_line(0, &key) && get_next_line(0, &value))
+	while (get_next_line_no_nl(0, &key) && get_next_line_no_nl(0, &value))
 	{
+		__builtin_printf("<%s> <%s>\n", key, value);
+		if (!key && !value)
+			break ;
 		if (!key || !value)
 			return (free_all_tokens_errcode(table, DICTIONARY_ERR));
 		errcode = create_token(table, key, value);
@@ -43,7 +46,7 @@ static t_errcode	parse_input(t_token *table[HASH_SIZE])
 
 	key = NULL;
 	// if malloc fail in gnl, silent error
-	while (get_next_line(0, &key))
+	while (get_next_line_no_nl(0, &key))
 	{
 		value = get_token_value(table, key);
 		if (!value)
