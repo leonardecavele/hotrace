@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "helpers.h"
+#include "error.h"
 
 static void	prep(t_gnl *gnl, t_rest *rest)
 {
@@ -52,18 +53,18 @@ static bool	alloc_l(t_gnl *gnl)
 
 static bool	btol(t_gnl *gnl, t_rest *rest)
 {
-	bool	f_eol;
+	bool	f_nl;
 	size_t	i;
 
-	f_eol = 0;
+	f_nl = 0;
 	i = 0;
-	while (!f_eol && i < (size_t)gnl->nread)
+	while (!f_nl && i < (size_t)gnl->nread)
 	{
 		gnl->l[gnl->cur++] = rest->b[rest->i + i];
 		if (rest->b[rest->i + i++] == '\n')
 		{
 			gnl->cur--;
-			f_eol = 1;
+			f_nl = 1;
 		}
 	}
 	rest->len = 0;
@@ -75,34 +76,39 @@ static bool	btol(t_gnl *gnl, t_rest *rest)
 	}
 	gnl->l[gnl->cur] = 0;
 	gnl->nread = 0;
-	return (f_eol);
+	return (f_nl);
 }
 
-extern bool	get_next_line_no_nl(int fd, char **s)
+extern t_errcode	get_next_line_no_nl(int fd, char **s)
 {
-	static t_rest	rest[FD_MAX] = {0};
+	static t_rest	rest = {0};
 	t_gnl			gnl;
 
-	prep(&gnl, &rest[fd]);
-	if (BUFFER_SIZE < 1 || fd < 0 || fd > FD_MAX - 1)
-		return (false);
+	prep(&gnl, &rest);
 	while (1)
 	{
 		if (gnl.nread && gnl.max <= gnl.cur + gnl.nread + 1 && !alloc_l(&gnl))
-			return (false);
-		if (gnl.nread && btol(&gnl, &rest[fd]))
+			return (MALLOC_ERR);
+		if (gnl.nread && btol(&gnl, &rest))
 			break ;
-		gnl.nread = read(fd, rest[fd].b, BUFFER_SIZE);
+		gnl.nread = read(fd, rest.b, BUFFER_SIZE);
 		if (gnl.nread < 1)
 			break ;
 	}
 	if ((!gnl.cur && !gnl.nread) || gnl.nread < 0)
 		gnl.dup = NULL;
 	else
+	{
 		gnl.dup = malloc(++gnl.cur);
+		if (gnl.dup == NULL)
+		{
+			free(gnl.l);
+			return (MALLOC_ERR);
+		}
+	}
 	while (gnl.dup && gnl.cur--)
 		gnl.dup[gnl.cur] = gnl.l[gnl.cur];
 	free(gnl.l);
 	*s = gnl.dup;
-	return (true);
+	return (NO_ERR);
 }

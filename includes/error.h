@@ -17,9 +17,9 @@ typedef int	t_errcode;
 
 typedef enum e_errors
 {
-	NO_ERR,
-	MALLOC_ERR,
-	DICTIONARY_ERR,
+	NO_ERR = 0,
+	MALLOC_ERR = 1,
+	DICTIONARY_ERR = 2,
 }	t_errors;
 
 #endif

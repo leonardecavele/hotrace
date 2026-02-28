@@ -18,6 +18,8 @@
 # include <stdlib.h>
 # include <stdint.h>
 
+# include "error.h"
+
 # define FD_MAX			1024
 # define BUFFER_SIZE	1024
 
@@ -37,9 +39,9 @@ typedef struct s_gnl
 	size_t	max;
 }	t_gnl;
 
-bool	get_next_line_no_nl(int fd, char **s);
-void	ft_putstr_fd(int fd, const char *s);
-int		ft_strcmp(const char *s1, const char *s2);
-size_t	ft_strlen(const char *s);
+t_errcode	get_next_line_no_nl(int fd, char **s);
+void		ft_putstr_fd(int fd, const char *s);
+int			ft_strcmp(const char *s1, const char *s2);
+size_t		ft_strlen(const char *s);
 
 #endif

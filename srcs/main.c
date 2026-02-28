@@ -16,35 +16,40 @@
 
 static t_errcode	parse_dictionary(t_token *table[HASH_SIZE])
 {
-	t_errcode	errcode;
+	t_errcode	errcode_gnl;
+	t_errcode	errcode_token;
 	char		*key;
 	char		*value;
 
 	key = NULL;
 	value = NULL;
-	// if malloc fail in gnl, silent error
-	// need to get without the \n
-	while (get_next_line_no_nl(0, &key) && key
-		&& get_next_line_no_nl(0, &value))
+	errcode_gnl = get_next_line_no_nl(0, &key);
+	if (!key)
+		return (errcode_gnl);
+	errcode_gnl |= get_next_line_no_nl(0, &value);
+	while (key && errcode_gnl == NO_ERR)
 	{
-		errcode = create_token(table, key, value);
-		if (errcode != NO_ERR)
-			return (free_all_tokens_errcode(table, errcode));
+		errcode_token = create_token(table, key, value);
+		if (errcode_token != NO_ERR)
+			return (free_all_tokens_errcode(table, errcode_token));
+		errcode_gnl = get_next_line_no_nl(0, &key);
+		if (!key)
+			return (errcode_gnl);
+		errcode_gnl |= get_next_line_no_nl(0, &value);
 	}
-	return (NO_ERR);
+	return (errcode_gnl);
 }
 
 static t_errcode	parse_input(t_token *table[HASH_SIZE])
 {
-	char	*key;
-	char	*value;
+	t_errcode	errcode_gnl;
+	char		*key;
+	char		*value;
 
 	key = NULL;
-	// if malloc fail in gnl, silent error
-	while (get_next_line_no_nl(0, &key))
+	errcode_gnl = get_next_line_no_nl(0, &key);
+	while (errcode_gnl == NO_ERR && key)
 	{
-		if (!key)
-			break ;
 		if (!get_token_value(table, key, &value))
 		{
 			ft_putstr_fd(2, key);
@@ -55,8 +60,9 @@ static t_errcode	parse_input(t_token *table[HASH_SIZE])
 			ft_putstr_fd(1, value);
 			ft_putstr_fd(1, "\n");
 		}
+		errcode_gnl = get_next_line_no_nl(0, &key);
 	}
-	return (NO_ERR);
+	return (errcode_gnl);
 }
 
 t_errcode	main(void)
