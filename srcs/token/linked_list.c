@@ -22,9 +22,11 @@ extern void	list_clear(t_token **root)
 	current = *root;
 	while (current)
 	{
-		next = (*root)->next;
-		free(current->key);
-		free(current->value);
+		next = current->next;
+		if (current->key)
+			free(current->key);
+		if (current->value)
+			free(current->value);
 		free(current);
 		current = next;
 	}
@@ -35,8 +37,11 @@ extern void	list_push_back(t_token **root, t_token *token)
 {
 	t_token	*last;
 
-	if (!root || !token)
+	if (!root)
+	{
+		free(token);
 		return ;
+	}
 	if (!*root)
 	{
 		*root = token;

@@ -60,8 +60,10 @@ static t_errcode	parse_input(t_token *table[HASH_SIZE])
 			ft_putstr_fd(1, value);
 			ft_putstr_fd(1, "\n");
 		}
+		free(key);
 		errcode_gnl = get_next_line_no_nl(0, &key);
 	}
+	free(key);
 	return (errcode_gnl);
 }
 
