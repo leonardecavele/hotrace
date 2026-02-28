@@ -24,16 +24,16 @@ static t_errcode	parse_dictionary(t_token *table[HASH_SIZE])
 	key = NULL;
 	value = NULL;
 	errcode_gnl = get_next_line_no_nl(0, &key);
-	if (!key)
+	if (!key || !*key)
 		return (errcode_gnl);
 	errcode_gnl |= get_next_line_no_nl(0, &value);
-	while (key && errcode_gnl == NO_ERR)
+	while (key && *key && errcode_gnl == NO_ERR)
 	{
 		errcode_token = create_token(table, key, value);
 		if (errcode_token != NO_ERR)
 			return (free_all_tokens_errcode(table, errcode_token));
 		errcode_gnl = get_next_line_no_nl(0, &key);
-		if (!key)
+		if (!key || !*key)
 			return (errcode_gnl);
 		errcode_gnl |= get_next_line_no_nl(0, &value);
 	}
