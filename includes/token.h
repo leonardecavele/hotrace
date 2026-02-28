@@ -6,7 +6,7 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 12:16:38 by ldecavel          #+#    #+#             */
-/*   Updated: 2026/02/28 17:33:06 by ldecavel         ###   ########.fr       */
+/*   Updated: 2026/02/28 17:38:11 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 # include "error.h"
 
-# define HASH_SIZE	4096
+# define HASH_SIZE	131072
 
 typedef struct s_token
 {
