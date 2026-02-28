@@ -6,7 +6,7 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 22:14:57 by ldecavel          #+#    #+#             */
-/*   Updated: 2026/02/28 16:51:59 by ldecavel         ###   ########.fr       */
+/*   Updated: 2026/02/28 16:55:22 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ static t_errcode	parse_input(t_token *table[HASH_SIZE])
 	// if malloc fail in gnl, silent error
 	while (get_next_line_no_nl(0, &key))
 	{
+		if (!key)
+			break ;
 		value = get_token_value(table, key);
 		if (!value)
 		{
