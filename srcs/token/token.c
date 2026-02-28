@@ -6,7 +6,7 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 12:19:26 by ldecavel          #+#    #+#             */
-/*   Updated: 2026/02/28 16:28:49 by ldecavel         ###   ########.fr       */
+/*   Updated: 2026/02/28 17:18:41 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ extern void	free_all_tokens(t_token *table[HASH_SIZE])
 		list_clear(&table[i]);
 }
 
-extern char	*get_token_value(t_token *table[HASH_SIZE], char *key)
+extern bool	get_token_value(t_token *table[HASH_SIZE], char *key, char **value)
 {
 	size_t	index;
 	t_token	*root;
@@ -38,10 +38,14 @@ extern char	*get_token_value(t_token *table[HASH_SIZE], char *key)
 	while (root)
 	{
 		if (!ft_strcmp(root->key, key))
-			return (root->value);
+		{
+			*value = root->value;
+			return true;
+		}
 		root = root->next;
 	}
-	return (NULL);
+	*value = NULL;
+	return false;
 }
 
 extern t_errcode	create_token(t_token *table[HASH_SIZE], char *key, char *value)
