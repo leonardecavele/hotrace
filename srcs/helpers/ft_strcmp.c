@@ -1,19 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   helpers.c                                          :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 12:34:51 by ldecavel          #+#    #+#             */
-/*   Updated: 2026/02/28 12:37:57 by ldecavel         ###   ########.fr       */
+/*   Updated: 2026/02/28 15:27:01 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "token.h"
+#include "helpers.h"
 
-extern int	free_all_tokens_errcode(int errcode)
+extern int	ft_strcmp(const char *s1, const char *s2)
 {
-	free_all_tokens();
-	return (errcode);
+	size_t	i;
+
+	i = 0;
+	while (s1[i] && (uint8_t)s1[i] == (uint8_t)s2[i])
+		i++;
+	return ((uint8_t)s1[i] - (uint8_t)s2[i]);
 }

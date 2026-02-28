@@ -12,10 +12,17 @@ CFLAGS = -MMD -MP -Wall -Wextra -Werror -I $(INC_DIR)
 MAKEFLAGS += -j $$(nproc)
 
 # sources
-SRCS =\
+SRCS = main.c \
+	   helpers/ft_putstr_fd.c \
+	   helpers/ft_strcmp.c \
+	   helpers/ft_strlen.c \
+	   helpers/get_next_line.c \
+	   token/hash.c \
+	   token/linked_list.c \
+	   token/token.c
 
 # objects
-OBJS = $(SRCS:%.c=$(BUILD_DIR)/lib/%.o)
+OBJS = $(SRCS:%.c=$(BUILD_DIR)/%.o)
 DEPS = $(OBJS:.o=.d)
 
 # rules
@@ -24,7 +31,7 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $@
 
-$(BUILD_DIR)/%.o: %.c
+$(BUILD_DIR)/%.o: $(SRCS_DIR)/%.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 

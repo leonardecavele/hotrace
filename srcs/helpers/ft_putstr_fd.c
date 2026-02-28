@@ -1,26 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hash.c                                             :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/28 14:01:45 by ldecavel          #+#    #+#             */
-/*   Updated: 2026/02/28 15:31:46 by ldecavel         ###   ########.fr       */
+/*   Created: 2026/02/28 15:26:40 by ldecavel          #+#    #+#             */
+/*   Updated: 2026/02/28 16:13:21 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "token.h"
+#include "helpers.h"
 
-extern size_t	hash_fnv1a(const char *s)
+extern void	ft_putstr_fd(int fd, const char *s)
 {
-	size_t h = 1469598103934665603ULL;
-
-	while (*s)
-	{
-		h ^= (unsigned char)*s;
-		h *= 1099511628211ULL;
-		s++;
-	}
-	return h;
+	if (!s)
+		return ;
+	write(fd, s, ft_strlen(s));
 }

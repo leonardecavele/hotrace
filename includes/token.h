@@ -6,7 +6,7 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 12:16:38 by ldecavel          #+#    #+#             */
-/*   Updated: 2026/02/28 14:03:07 by ldecavel         ###   ########.fr       */
+/*   Updated: 2026/02/28 16:28:25 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,20 @@ typedef struct s_token
 {
 	char	*key;
 	char	*value;
+	struct s_token	*prev;
 	struct s_token	*next;
 }	t_token;
 
 /* token.c */
-void	free_all_tokens(t_token **table[HASH_SIZE]);
-int		free_all_tokens_errcode(t_token **table[HASH_SIZE], int errcode);
-char	*get_token_value(t_token *table[HASH_SIZE]);
-int		create_token(t_token **table[HASH_SIZE], char *key, char *value);
+void	free_all_tokens(t_token *table[HASH_SIZE]);
+int		free_all_tokens_errcode(t_token *table[HASH_SIZE], int errcode);
+char	*get_token_value(t_token *table[HASH_SIZE], char *key);
+int		create_token(t_token *table[HASH_SIZE], char *key, char *value);
 /* hash.c */
+size_t	hash_fnv1a(const char *s);
 /* linked_list.c */
 void	list_clear(t_token **root);
 void	list_push_back(t_token **root, t_token *token);
-int		list_push_back_new(t_token **root, char *key, char *value):
+int		list_push_back_new(t_token **root, char *key, char *value);
 
 #endif

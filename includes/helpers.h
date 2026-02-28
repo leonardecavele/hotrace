@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   helpers.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/22 11:37:21 by ldecavel          #+#    #+#             */
-/*   Updated: 2026/02/28 13:00:08 by ldecavel         ###   ########.fr       */
+/*   Created: 2026/02/28 14:58:42 by ldecavel          #+#    #+#             */
+/*   Updated: 2026/02/28 16:16:07 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef HELPERS_H
+# define HELPERS_H
 
+#include <unistd.h>
 #include <stdbool.h>
 #include <stdlib.h>
-#include <unistd.h>
+#include <stdint.h>
 
 # define FD_MAX			1024
 # define BUFFER_SIZE	1024
@@ -37,5 +38,8 @@ typedef struct s_gnl
 }	t_gnl;
 
 bool	get_next_line(int fd, char **s);
+void	ft_putstr_fd(int fd, const char *s);
+int		ft_strcmp(const char *s1, const char *s2);
+size_t	ft_strlen(const char *s);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 13:31:51 by ldecavel          #+#    #+#             */
-/*   Updated: 2026/02/28 14:01:11 by ldecavel         ###   ########.fr       */
+/*   Updated: 2026/02/28 16:23:14 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ extern void	list_push_back(t_token **root, t_token *token)
 	return ;
 }
 
-extern int	list_push_back_new(t_token **root, char *key, char *value)
+extern t_errcode	list_push_back_new(t_token **root, char *key, char *value)
 {
 	t_token	*token;
 
