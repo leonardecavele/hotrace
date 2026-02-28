@@ -6,7 +6,7 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 10:27:10 by ldecavel          #+#    #+#             */
-/*   Updated: 2026/02/28 19:50:10 by ldecavel         ###   ########.fr       */
+/*   Updated: 2026/02/28 20:11:12 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,6 @@ static bool	alloc_l(t_gnl *gnl)
 
 static void	handle_rest(t_gnl *gnl, t_rest *rest, size_t i)
 {
-	rest->len = 0;
-	rest->i = 0;
 	if (i < (size_t)gnl->nread)
 	{
 		rest->len = gnl->nread - i;
