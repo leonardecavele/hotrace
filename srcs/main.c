@@ -6,7 +6,7 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 22:14:57 by ldecavel          #+#    #+#             */
-/*   Updated: 2026/02/28 16:55:22 by ldecavel         ###   ########.fr       */
+/*   Updated: 2026/02/28 16:58:23 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ static t_errcode	parse_dictionary(t_token *table[HASH_SIZE])
 		if (errcode != NO_ERR)
 			return (free_all_tokens_errcode(table, errcode));
 	}
-
 	return (NO_ERR);
 }
 
@@ -62,7 +61,6 @@ static t_errcode	parse_input(t_token *table[HASH_SIZE])
 			ft_putstr_fd(1, "\n");
 		}
 	}
-
 	return (NO_ERR);
 }
 
@@ -74,11 +72,9 @@ t_errcode	main(void)
 	errcode = parse_dictionary(table);
 	if (errcode != NO_ERR)
 		return (errcode);
-
 	errcode = parse_input(table);
 	if (errcode != NO_ERR)
 		return (errcode);
-
 	free_all_tokens(table);
 	return (NO_ERR);
 }
