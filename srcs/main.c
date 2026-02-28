@@ -6,7 +6,7 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 22:14:57 by ldecavel          #+#    #+#             */
-/*   Updated: 2026/02/28 17:26:15 by ldecavel         ###   ########.fr       */
+/*   Updated: 2026/02/28 17:40:03 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ static t_errcode	parse_dictionary(t_token *table[HASH_SIZE])
 	while (get_next_line_no_nl(0, &key) && key
 		&& get_next_line_no_nl(0, &value))
 	{
-		__builtin_printf("<%s> <%s>\n", key, value);
 		errcode = create_token(table, key, value);
 		if (errcode != NO_ERR)
 			return (free_all_tokens_errcode(table, errcode));
