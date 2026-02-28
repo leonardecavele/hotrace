@@ -6,17 +6,17 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 14:58:42 by ldecavel          #+#    #+#             */
-/*   Updated: 2026/02/28 16:42:09 by ldecavel         ###   ########.fr       */
+/*   Updated: 2026/02/28 17:31:04 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef HELPERS_H
 # define HELPERS_H
 
-#include <unistd.h>
-#include <stdbool.h>
-#include <stdlib.h>
-#include <stdint.h>
+# include <unistd.h>
+# include <stdbool.h>
+# include <stdlib.h>
+# include <stdint.h>
 
 # define FD_MAX			1024
 # define BUFFER_SIZE	1024

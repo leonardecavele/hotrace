@@ -6,24 +6,24 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 12:16:38 by ldecavel          #+#    #+#             */
-/*   Updated: 2026/02/28 17:19:31 by ldecavel         ###   ########.fr       */
+/*   Updated: 2026/02/28 17:33:06 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOKEN_H
 # define TOKEN_H
 
-#include <stdlib.h>
-#include <stdbool.h>
+# include <stdlib.h>
+# include <stdbool.h>
 
-#include "error.h"
+# include "error.h"
 
-#define HASH_SIZE	4096
+# define HASH_SIZE	4096
 
 typedef struct s_token
 {
-	char	*key;
-	char	*value;
+	char			*key;
+	char			*value;
 	struct s_token	*prev;
 	struct s_token	*next;
 }	t_token;

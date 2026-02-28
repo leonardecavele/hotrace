@@ -6,7 +6,7 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 12:19:26 by ldecavel          #+#    #+#             */
-/*   Updated: 2026/02/28 17:22:27 by ldecavel         ###   ########.fr       */
+/*   Updated: 2026/02/28 17:29:37 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ extern bool	get_token_value(t_token *table[HASH_SIZE], char *key, char **value)
 			*value = root->value;
 			if (!*value)
 				*value = null_value;
-			return true;
+			return (true);
 		}
 		root = root->next;
 	}
 	*value = NULL;
-	return false;
+	return (false);
 }
 
 extern t_errcode	create_token(t_token *table[HASH_SIZE], char *key, char *value)
