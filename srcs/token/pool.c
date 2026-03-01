@@ -6,7 +6,7 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 11:02:22 by ldecavel          #+#    #+#             */
-/*   Updated: 2026/03/01 12:10:53 by ldecavel         ###   ########.fr       */
+/*   Updated: 2026/03/01 12:15:44 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ extern t_token	*token_pool_new(t_token_block **last)
 		block = (t_token_block *)malloc(sizeof(t_token_block));
 		if (!block)
 			return (NULL);
-		block->used = 0;
-		block->next = *last;
+		*block = (t_token_block){.next = *last};
 		*last = block;
 	}
 	return (&block->items[block->used++]);
