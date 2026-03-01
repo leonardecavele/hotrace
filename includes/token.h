@@ -6,7 +6,7 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 12:16:38 by ldecavel          #+#    #+#             */
-/*   Updated: 2026/03/01 12:14:01 by ldecavel         ###   ########.fr       */
+/*   Updated: 2026/03/01 12:30:49 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ typedef struct s_token_block
 }	t_token_block;
 
 /* pool.c */
-void		token_pool_init(t_token_block **last);
 void		token_pool_destroy(t_token_block **last);
 t_token		*token_pool_new(t_token_block **last);
 /* token.c */

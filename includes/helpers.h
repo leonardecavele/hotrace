@@ -6,7 +6,7 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 14:58:42 by ldecavel          #+#    #+#             */
-/*   Updated: 2026/02/28 17:31:04 by ldecavel         ###   ########.fr       */
+/*   Updated: 2026/03/01 12:33:30 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 
 # include "error.h"
 
-# define FD_MAX			1024
 # define BUFFER_SIZE	1024
 
 typedef struct s_rest
@@ -33,7 +32,6 @@ typedef struct s_rest
 typedef struct s_gnl
 {
 	char	*l;
-	char	*dup;
 	ssize_t	nread;
 	size_t	cur;
 	size_t	max;
