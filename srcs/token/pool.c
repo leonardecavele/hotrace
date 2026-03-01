@@ -6,7 +6,7 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 11:02:22 by ldecavel          #+#    #+#             */
-/*   Updated: 2026/03/01 11:58:55 by ldecavel         ###   ########.fr       */
+/*   Updated: 2026/03/01 12:10:53 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,36 +15,36 @@
 
 extern t_token	*token_pool_new(t_token_block **last)
 {
-	t_token_block	*b;
+	t_token_block	*block;
 
 	if (!last)
 		return (NULL);
-	b = *last;
-	if (!b || b->used >= TOKEN_BLOCK_CAP)
+	block = *last;
+	if (!block || block->used >= TOKEN_BLOCK_CAP)
 	{
-		b = (t_token_block *)malloc(sizeof(t_token_block));
-		if (!b)
+		block = (t_token_block *)malloc(sizeof(t_token_block));
+		if (!block)
 			return (NULL);
-		b->used = 0;
-		b->next = *last;
-		*last = b;
+		block->used = 0;
+		block->next = *last;
+		*last = block;
 	}
-	return (&b->items[b->used++]);
+	return (&block->items[block->used++]);
 }
 
 extern void	token_pool_destroy(t_token_block **last)
 {
-	t_token_block	*cur;
-	t_token_block	*nxt;
+	t_token_block	*current;
+	t_token_block	*next;
 
 	if (!last)
 		return ;
-	cur = *last;
-	while (cur)
+	current = *last;
+	while (current)
 	{
-		nxt = cur->next;
-		free(cur);
-		cur = nxt;
+		next = current->next;
+		free(current);
+		current = next;
 	}
 	*last = NULL;
 }

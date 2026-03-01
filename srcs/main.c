@@ -6,7 +6,7 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 22:14:57 by ldecavel          #+#    #+#             */
-/*   Updated: 2026/03/01 11:56:40 by ldecavel         ###   ########.fr       */
+/*   Updated: 2026/03/01 12:01:39 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 #include "token.h"
 #include "helpers.h"
 
-static t_errcode	parse_dictionary(t_token *table[HASH_SIZE], t_token_block **last)
+static t_errcode	parse_dictionary(
+	t_token *table[HASH_SIZE],
+	t_token_block **last
+)
 {
 	t_errcode	errcode;
 	char		*key;

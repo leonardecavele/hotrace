@@ -6,7 +6,7 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 12:19:26 by ldecavel          #+#    #+#             */
-/*   Updated: 2026/03/01 11:58:24 by ldecavel         ###   ########.fr       */
+/*   Updated: 2026/03/01 12:13:41 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,23 +41,26 @@ extern void	free_all_tokens(t_token *table[HASH_SIZE], t_token_block **last)
 	token_pool_destroy(last);
 }
 
+static t_token	*find_token(t_token *head, size_t hash, const char *key)
+{
+	while (head && (head->hash != hash || ft_strcmp(head->key, key)))
+		head = head->next;
+	return (head);
+}
+
 extern bool	get_token_value(t_token *table[HASH_SIZE], char *key, char **value)
 {
-	size_t	h;
+	size_t	hash;
 	size_t	index;
-	t_token	*root;
+	t_token	*token;
 
-	h = hash_fnv1a(key);
-	index = h & (HASH_SIZE - 1);
-	root = table[index];
-	while (root)
+	hash = hash_fnv1a(key);
+	index = hash & (HASH_SIZE - 1);
+	token = token_find(table[index], hash, key);
+	if (token != NULL)
 	{
-		if (root->hash == h && !ft_strcmp(root->key, key))
-		{
-			*value = root->value;
-			return (true);
-		}
-		root = root->next;
+		*value = token->value;
+		return (true);
 	}
 	*value = NULL;
 	return (false);
@@ -70,33 +73,24 @@ extern t_errcode	create_token(
 	char *value
 )
 {
-	size_t	h;
+	size_t	hash;
 	size_t	index;
-	t_token	*root;
-	t_token	*tok;
+	t_token	*token;
 
-	h = hash_fnv1a(key);
-	index = h & (HASH_SIZE - 1);
-	root = table[index];
-	while (root)
+	hash = hash_fnv1a(key);
+	index = hash & (HASH_SIZE - 1);
+	token = find_token(table[index], hash, key);
+	if (token)
 	{
-		if (root->hash == h && !ft_strcmp(root->key, key))
-		{
-			free(key);
-			if (root->value)
-				free(root->value);
-			root->value = value;
-			return (NO_ERR);
-		}
-		root = root->next;
+		free(key);
+		free(token->value);
+		token->value = value;
+		return (NO_ERR);
 	}
-	tok = token_pool_new(last);
-	if (!tok)
+	token = token_pool_new(last);
+	if (!token)
 		return (free_key_value(&key, &value, MALLOC_ERR));
-	*tok = (t_token){0};
-	tok->hash = h;
-	tok->key = key;
-	tok->value = value;
-	list_push_back(&table[index], tok);
+	*token = (t_token){.hash = hash, .key = key, .value = value};
+	list_push_back(&table[index], token);
 	return (NO_ERR);
 }
