@@ -6,7 +6,7 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 12:19:26 by ldecavel          #+#    #+#             */
-/*   Updated: 2026/03/01 12:13:41 by ldecavel         ###   ########.fr       */
+/*   Updated: 2026/03/01 12:18:02 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ extern bool	get_token_value(t_token *table[HASH_SIZE], char *key, char **value)
 
 	hash = hash_fnv1a(key);
 	index = hash & (HASH_SIZE - 1);
-	token = token_find(table[index], hash, key);
+	token = find_token(table[index], hash, key);
 	if (token != NULL)
 	{
 		*value = token->value;
