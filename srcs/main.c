@@ -6,7 +6,7 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 22:14:57 by ldecavel          #+#    #+#             */
-/*   Updated: 2026/03/01 12:01:39 by ldecavel         ###   ########.fr       */
+/*   Updated: 2026/03/01 12:29:21 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ static t_errcode	parse_input(t_token *table[HASH_SIZE])
 			ft_putstr_fd(1, value);
 		else
 		{
-			ft_putstr_fd(2, key);
-			ft_putstr_fd(2, ": Not found.");
+			ft_putstr_fd(1, key);
+			ft_putstr_fd(1, ": Not found.");
 		}
 		ft_putstr_fd(1, "\n");
 		free_key_value(&key, NULL, NO_ERR);
