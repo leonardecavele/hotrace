@@ -6,7 +6,7 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 12:19:26 by ldecavel          #+#    #+#             */
-/*   Updated: 2026/02/28 19:46:31 by ldecavel         ###   ########.fr       */
+/*   Updated: 2026/03/01 01:29:14 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,14 +81,27 @@ static bool	token_collision(
 
 extern t_errcode	create_token(
 	t_token *table[HASH_SIZE],
-	char *key,
-	char *value
+	char **key,
+	char **value
 )
 {
 	size_t		index;
+	t_errcode	errcode;
 
-	index = hash_fnv1a(key) & (HASH_SIZE - 1);
-	if (token_collision(table, key, value, index))
+	index = hash_fnv1a(*key) & (HASH_SIZE - 1);
+	if (token_collision(table, *key, *value, index))
+	{
+		*key = NULL;
+		*value = NULL;
 		return (NO_ERR);
-	return (list_push_back_new(&table[index], key, value));
+	}
+	errcode = list_push_back_new(&table[index], *key, *value);
+	if (errcode != NO_ERR)
+	{
+		free(*key);
+		free(*value);
+	}
+	*key = NULL;
+	*value = NULL;
+	return (errcode);
 }

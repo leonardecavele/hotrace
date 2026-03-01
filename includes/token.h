@@ -6,7 +6,7 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 12:16:38 by ldecavel          #+#    #+#             */
-/*   Updated: 2026/02/28 17:38:11 by ldecavel         ###   ########.fr       */
+/*   Updated: 2026/03/01 01:31:03 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct s_token
 void	free_all_tokens(t_token *table[HASH_SIZE]);
 int		free_all_tokens_errcode(t_token *table[HASH_SIZE], int errcode);
 bool	get_token_value(t_token *table[HASH_SIZE], char *key, char **value);
-int		create_token(t_token *table[HASH_SIZE], char *key, char *value);
+int		create_token(t_token *table[HASH_SIZE], char **key, char **value);
 /* hash.c */
 size_t	hash_fnv1a(const char *s);
 /* linked_list.c */
