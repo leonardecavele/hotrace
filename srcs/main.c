@@ -13,6 +13,15 @@
 #include "error.h"
 #include "token.h"
 #include "helpers.h"
+#include "writer.h"
+
+bool	stdin_is_interactive(void);
+
+static inline void	print_not_found(char *key, t_writer *out)
+{
+	writer_write(out, key, ft_strlen(key));
+	writer_write(out, ": Not found.", 12);
+}
 
 static t_errcode	parse_dictionary(
 	t_token *table[HASH_SIZE],
@@ -43,13 +52,15 @@ static t_errcode	parse_dictionary(
 	}
 }
 
-static t_errcode	parse_input(t_token *table[HASH_SIZE])
+static t_errcode	parse_input(t_token *table[HASH_SIZE], t_writer *out)
 {
 	t_errcode	errcode;
 	char		*key;
 	char		*value;
+	bool		interactive;
 
 	key = NULL;
+	interactive = stdin_is_interactive();
 	while (1)
 	{
 		errcode = get_next_line_no_nl(0, &key);
@@ -58,14 +69,13 @@ static t_errcode	parse_input(t_token *table[HASH_SIZE])
 		if (!key || !*key)
 			return (free_key_value(&key, NULL, NO_ERR));
 		if (get_token_value(table, key, &value))
-			ft_putstr_fd(1, value);
+			writer_write(out, value, ft_strlen(value));
 		else
-		{
-			ft_putstr_fd(1, key);
-			ft_putstr_fd(1, ": Not found.");
-		}
-		ft_putstr_fd(1, "\n");
+			print_not_found(key, out);
+		writer_write(out, "\n", 1);
 		free_key_value(&key, NULL, NO_ERR);
+		if (interactive)
+			writer_flush(out);
 	}
 }
 
@@ -73,16 +83,20 @@ int	main(void)
 {
 	t_errcode		errcode;
 	t_token_block	*last;
+	char			writer_buf[1024];
+	t_writer		writer;
 	static t_token	*table[HASH_SIZE] = {0};
 
 	last = NULL;
+	writer_init(&writer, STDOUT_FILENO, writer_buf, sizeof(writer_buf));
 	errcode = parse_dictionary(table, &last);
 	if (errcode != NO_ERR)
 	{
 		free_all_tokens(table, &last);
 		return (errcode);
 	}
-	errcode = parse_input(table);
+	errcode = parse_input(table, &writer);
 	free_all_tokens(table, &last);
+	writer_flush(&writer);
 	return (errcode);
 }
