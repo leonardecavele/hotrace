@@ -6,7 +6,7 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 10:27:10 by ldecavel          #+#    #+#             */
-/*   Updated: 2026/02/28 20:11:12 by ldecavel         ###   ########.fr       */
+/*   Updated: 2026/03/01 20:09:19 by ldecavel         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,14 @@
 #include <sys/stat.h>
 #include <stdint.h>
 
-#ifndef __x86_64__
-# error "This inline asm version is for x86_64 only."
-#endif
-
 #ifndef __NR_FSTAT
 # define __NR_FSTAT 5
+#endif
+
+#ifdef __x86_64__
+# define IS_INTERACTIVE_ENABLED 1
+#else
+# define IS_INTERACTIVE_ENABLED 0
 #endif
 
 static long	sys_fstat(int fd, struct stat *st)
@@ -45,6 +47,8 @@ bool	stdin_is_interactive(void)
 {
 	struct stat	st;
 
+	if (!IS_INTERACTIVE_ENABLED)
+		return (true);
 	if (sys_fstat(0, &st) != 0)
 		return (false);
 	if (S_ISCHR(st.st_mode))
