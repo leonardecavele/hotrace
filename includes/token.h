@@ -6,7 +6,7 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 12:16:38 by ldecavel          #+#    #+#             */
-/*   Updated: 2026/03/01 12:30:49 by ldecavel         ###   ########.fr       */
+/*   Updated: 2026/03/01 14:46:31 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,8 @@ t_token		*token_pool_new(t_token_block **last);
 /* token.c */
 void		free_all_tokens(t_token *table[HASH_SIZE], t_token_block **last);
 bool		get_token_value(t_token *table[HASH_SIZE], char *key, char **value);
-t_errcode	create_token(\
-	t_token *table[HASH_SIZE], t_token_block **last, char *key, char *value\
-);
+t_errcode	create_token(t_token *table[HASH_SIZE], t_token_block **last,
+				char *key, char *value);
 t_errcode	free_key_value(char **key, char **value, t_errcode errcode);
 /* hash.c */
 size_t		hash_fnv1a(const char *s);
