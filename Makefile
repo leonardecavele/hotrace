@@ -19,7 +19,8 @@ SRCS = main.c \
 	   helpers/get_next_line_no_nl.c \
 	   token/hash.c \
 	   token/linked_list.c \
-	   token/token.c
+	   token/token.c \
+	   token/pool.c
 
 # objects
 OBJS = $(SRCS:%.c=$(BUILD_DIR)/%.o)

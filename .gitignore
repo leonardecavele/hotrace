@@ -1,2 +1,4 @@
 hotrace
+.gitignore
+*.pdf
 build

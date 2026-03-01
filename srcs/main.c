@@ -6,7 +6,7 @@
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 22:14:57 by ldecavel          #+#    #+#             */
-/*   Updated: 2026/03/01 01:31:26 by ldecavel         ###   ########.fr       */
+/*   Updated: 2026/03/01 11:56:40 by ldecavel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,9 @@
 #include "token.h"
 #include "helpers.h"
 
-static t_errcode	free_key_value(char **key, char **value, t_errcode errcode)
+static t_errcode	parse_dictionary(t_token *table[HASH_SIZE], t_token_block **last)
 {
-	if (key && *key)
-	{
-		free(*key);
-		*key = NULL;
-	}
-	if (value && *value)
-	{
-		free(*value);
-		*value = NULL;
-	}
-	return (errcode);
-}
-
-static t_errcode	parse_dictionary(t_token *table[HASH_SIZE])
-{
-	t_errcode	err;
+	t_errcode	errcode;
 	char		*key;
 	char		*value;
 
@@ -39,44 +24,42 @@ static t_errcode	parse_dictionary(t_token *table[HASH_SIZE])
 	value = NULL;
 	while (1)
 	{
-		err = get_next_line_no_nl(0, &key);
-		if (err != NO_ERR)
-			return (free_key_value(&key, &value, err));
+		errcode = get_next_line_no_nl(0, &key);
+		if (errcode != NO_ERR)
+			return (free_key_value(&key, &value, errcode));
 		if (!key || !*key)
 			return (free_key_value(&key, &value, NO_ERR));
-		err = get_next_line_no_nl(0, &value);
-		if (err != NO_ERR)
-			return (free_key_value(&key, &value, err));
-		if (!value)
+		errcode = get_next_line_no_nl(0, &value);
+		if (errcode != NO_ERR || !value)
 			return (free_key_value(&key, &value, DICTIONARY_ERR));
-		err = create_token(table, &key, &value);
-		if (err != NO_ERR)
-			return (free_key_value(&key, &value, err));
+		errcode = create_token(table, last, key, value);
 		key = NULL;
 		value = NULL;
+		if (errcode != NO_ERR)
+			return (errcode);
 	}
 }
 
 static t_errcode	parse_input(t_token *table[HASH_SIZE])
 {
-	t_errcode	err;
+	t_errcode	errcode;
 	char		*key;
 	char		*value;
 
 	key = NULL;
 	while (1)
 	{
-		err = get_next_line_no_nl(0, &key);
-		if (err != NO_ERR)
-			return (free_key_value(&key, NULL, err));
+		errcode = get_next_line_no_nl(0, &key);
+		if (errcode != NO_ERR)
+			return (free_key_value(&key, NULL, errcode));
 		if (!key || !*key)
 			return (free_key_value(&key, NULL, NO_ERR));
 		if (get_token_value(table, key, &value))
 			ft_putstr_fd(1, value);
 		else
 		{
-			ft_putstr_fd(1, key);
-			ft_putstr_fd(1, ": Not found.");
+			ft_putstr_fd(2, key);
+			ft_putstr_fd(2, ": Not found.");
 		}
 		ft_putstr_fd(1, "\n");
 		free_key_value(&key, NULL, NO_ERR);
@@ -86,20 +69,17 @@ static t_errcode	parse_input(t_token *table[HASH_SIZE])
 int	main(void)
 {
 	t_errcode		errcode;
+	t_token_block	*last;
 	static t_token	*table[HASH_SIZE] = {0};
 
-	errcode = parse_dictionary(table);
+	last = NULL;
+	errcode = parse_dictionary(table, &last);
 	if (errcode != NO_ERR)
 	{
-		free_all_tokens(table);
+		free_all_tokens(table, &last);
 		return (errcode);
 	}
 	errcode = parse_input(table);
-	if (errcode != NO_ERR)
-	{
-		free_all_tokens(table);
-		return (errcode);
-	}
-	free_all_tokens(table);
+	free_all_tokens(table, &last);
 	return (errcode);
 }
