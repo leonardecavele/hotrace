@@ -1,50 +1,65 @@
-# build
-NAME = hotrace
+### CONSTANTS
+CC			=	cc
+CFLAGS		=	-Wall -Wextra -Werror
 
-# directories 
-SRCS_DIR = srcs
-INC_DIR = includes
-BUILD_DIR = build
+NAME		=	hotrace
 
-# flags
-CC = cc
-CFLAGS = -MMD -MP -Wall -Wextra -Werror -I $(INC_DIR)
-MAKEFLAGS += -j $$(nproc)
+INC_DIR		=	includes
 
-# sources
-SRCS = main.c \
-	   helpers/ft_putstr_fd.c \
-	   helpers/ft_strcmp.c \
-	   helpers/ft_strlen.c \
-	   helpers/get_next_line_no_nl.c \
-	   token/hash.c \
-	   token/linked_list.c \
-	   token/token.c \
-	   token/pool.c
+SRC_FILES	= 	main.c \
+				helpers/ft_putstr_fd.c \
+				helpers/ft_strcmp.c \
+				helpers/ft_strlen.c \
+				helpers/get_next_line_no_nl.c \
+				token/hash.c \
+				token/linked_list.c \
+				token/token.c \
+				token/pool.c
 
-# objects
-OBJS = $(SRCS:%.c=$(BUILD_DIR)/%.o)
-DEPS = $(OBJS:.o=.d)
+SRC_DIR		=	srcs
 
-# rules
+### DERIVED CONSTANTS
+SRCS		=	$(addprefix $(SRC_DIR)/, $(SRC_FILES))
+OBJS		= 	$(SRCS:.c=.o)
+DEPS		=	$(SRCS:.c=.d)
+
+-include $(DEPS)
+
+.DEFAULT_GOAL := all
+
+### COLORS
+COLOR_YELLOW	=	\033[1;33m
+COLOR_BOLD		=	\033[1m
+COLOR_END		=	\033[0m
+
+TITLE 			= 	[$(COLOR_YELLOW)🔥 - hotrace$(COLOR_END)]
+
+### RULES
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $@
+	@echo "$(TITLE) 🔗​ Linking binary $(COLOR_BOLD)$@$(COLOR_END)"
+	@$(CC) $(CFLAGS) $(OBJS) -o $@
 
-$(BUILD_DIR)/%.o: $(SRCS_DIR)/%.c
-	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -c $< -o $@
+%.o: %.c
+	@echo "$(TITLE) 🔨 Compiling $(COLOR_BOLD)$<$(COLOR_END)"
+	@$(CC) $(CFLAGS) -I$(INC_DIR) -MMD -c $< -o $@
 
 clean:
-	rm -rf $(BUILD_DIR)
+	@echo "$(TITLE) 🧹 Cleaning temporary files"
+	@$(RM) $(OBJS) $(DEPS)
 
 fclean: clean
-	rm -f $(NAME)
+	@echo "$(TITLE) 🧹 Cleaning binaries"
+	@$(RM) $(NAME)
 
-re: fclean
-	@make all --no-print-directory
+re: fclean all
 
-# miscellaneous
-.PHONY: all clean fclean re
--include $(DEPS)
+debug: CFLAGS += -g3
+debug: re
+
+
+sanitize: CFLAGS += -g3 -fsanitize=address
+sanitize: re
+
+.PHONY = all clean fclean re debug sanitize
