@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   helpers.h                                          :+:      :+:    :+:   */
+/*   writer.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldecavel <ldecavel@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,39 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HELPERS_H
-# define HELPERS_H
+#ifndef WRITER_H
+# define WRITER_H
 
 # include <unistd.h>
-# include <stdbool.h>
-# include <stdlib.h>
-# include <stdint.h>
 
-# include "error.h"
-
-# define BUFFER_SIZE	1024
-
-typedef struct s_rest
+typedef struct s_writer
 {
-	char	b[BUFFER_SIZE];
 	size_t	len;
-	size_t	i;
-}	t_rest;
+	size_t	capacity;
+	char	*buffer;
+	int		fd;
+}	t_writer;
 
-typedef struct s_gnl
-{
-	char	*l;
-	ssize_t	nread;
-	size_t	cur;
-	size_t	max;
-}	t_gnl;
-
-t_errcode	get_next_line_no_nl(int fd, char **s);
-void		ft_putstr_fd(int fd, const char *s);
-int			ft_strcmp(const char *s1, const char *s2);
-size_t		ft_strlen(const char *s);
-void		*ft_memcpy(void *dest, const void *src, size_t n);
-size_t		ft_size_max(size_t a, size_t b);
-size_t		ft_size_min(size_t a, size_t b);
+t_writer	*writer_new(int fd, char *buffer, size_t capacity);
+void		writer_flush(t_writer *writer);
+void		writer_write(t_writer *writer, char *str, size_t len);
+void		writer_init(t_writer *writer,
+				int fd, char *buffer, size_t capacity);
 
 #endif

@@ -7,10 +7,14 @@ NAME		=	hotrace
 INC_DIR		=	includes
 
 SRC_FILES	= 	main.c \
+				writer.c \
+				is_interactive.c \
 				helpers/ft_putstr_fd.c \
 				helpers/ft_strcmp.c \
 				helpers/ft_strlen.c \
 				helpers/get_next_line_no_nl.c \
+				helpers/ft_memcpy.c \
+				helpers/ft_min_max.c \
 				token/hash.c \
 				token/linked_list.c \
 				token/token.c \
